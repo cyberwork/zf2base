@@ -10,7 +10,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.2.3",
+        "zendframework/zendframework": "2.*",
 	"zendframework/zftool": "dev-master",
         "firephp/firephp-core": "dev-master",
         "zendframework/zend-developer-tools": "dev-master",
