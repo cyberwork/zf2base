@@ -1,0 +1,5 @@
+-composer
+
+para instalar executar
+
+php composer.phar install --prefer-dist
