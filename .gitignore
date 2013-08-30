@@ -6,5 +6,6 @@ nbproject
 .idea
 .project
 .settings
+.c9revisions
 composer.lock
 vendor/bin
