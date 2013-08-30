@@ -7,7 +7,7 @@ $modules = array(
 		'DoctrineModule',
 		'DoctrineORMModule'
 );
-if ($env == 'development') {
+if ($_SERVER['APPLICATION_ENV'] == 'development') {
 	$modules[] = 'ZendDeveloperTools';
 }
 return array(
