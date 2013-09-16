@@ -5,7 +5,9 @@ $env = getenv('APP_ENV') ?: 'production';
 $modules = array(
 		'Application',
 		'DoctrineModule',
-		'DoctrineORMModule'
+		'DoctrineORMModule',
+		'SONBase',
+		'SONUser'
 );
 if ($_SERVER['APPLICATION_ENV'] == 'development') {
 	$modules[] = 'ZendDeveloperTools';

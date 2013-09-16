@@ -1,19 +1,22 @@
 {
-    "name": "zendframework/skeleton-application",
-    "description": "Skeleton Application for ZF2",
-    "license": "BSD-3-Clause",
-    "keywords": [
-        "framework",
-        "zf2"
-    ],
-    "homepage": "http://framework.zend.com/",
-    "minimum-stability": "dev",
-    "require": {
-        "php": ">=5.3.3",
-        "zendframework/zendframework": "2.*",
-	    "zendframework/zftool": "dev-master",
-        "firephp/firephp-core": "dev-master",
-        "zendframework/zend-developer-tools": "dev-master",
-	    "doctrine/doctrine-orm-module": "dev-master"
-    }
+	"name" : "zendframework/skeleton-application",
+	"description" : "Skeleton Application for ZF2",
+	"keywords" : [
+		"framework",
+		"zf2"
+	],
+	"homepage" : "http://framework.zend.com/",
+	"license" : [
+		"BSD-3-Clause"
+	],
+	"require" : {
+		"doctrine/doctrine-orm-module" : "dev-master",
+		"hounddog/doctrine-data-fixture-module" : "master-dev",
+		"zendframework/zftool" : "dev-master",
+		"php" : ">=5.3.3",
+		"firephp/firephp-core" : "dev-master",
+		"zendframework/zendframework" : "2.*",
+		"zendframework/zend-developer-tools" : "dev-master"
+	},
+	"minimum-stability" : "dev"
 }

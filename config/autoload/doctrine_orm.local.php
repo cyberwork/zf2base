@@ -11,6 +11,9 @@ return array(
                     'user'     => 'root',
                     'password' => '',
                     'dbname'   => 'zf2base',
+                		'driverOptions' => array(
+                			PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
+                		)
                 )
             )
         )
