@@ -5,7 +5,7 @@ namespace SONUser;
 return array (
 		'router' => array (
 				'routes' => array (
-						'son-user' => array (
+						'sonuser-register' => array (
 								'type' => 'Literal',
 								'options' => array (
 										'route' => '/register',
@@ -15,7 +15,17 @@ return array (
 												'action' => 'register' 
 										) 
 								) 
-						) 
+						),
+						'sonuser-activate' => array (
+								'type' => 'Segment',
+								'options' => array (
+										'route' => '/register/activate[/:key]',
+										'defaults' => array (
+												'controller' => 'SONUser\Controller\Index',
+												'action' => 'activate'
+										)
+								)
+						)
 				) 
 		),
 		'controllers' => array(

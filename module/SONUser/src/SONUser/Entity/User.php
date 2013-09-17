@@ -4,15 +4,18 @@ namespace SONUser\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Crypt\Password\Bcrypt;
-use Zend\Math\Rand;
+use Zend\Math\Rand,
+		Zend\Crypt\Key\Derivation\Pbkdf2;
 use Zend\Stdlib\Hydrator;
 use Zend\Stdlib\Hydrator\ClassMethods;
+
 /**
  * SonuserUsers
  *
  * @ORM\Table(name="sonuser_users", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="SONUser\Entity\UserRepository")
  */
 class User {
 	/**
@@ -82,13 +85,14 @@ class User {
 		
 		// Gerando um salt aleatório
 		$this->salt = base64_encode(Rand::getBytes(8,true));
+		//$firephp = $this->getServiceLocator()->get('Zend\Log\FirePhp')->info('Will work equally well');
 		// Gerando o activationKey concatenando email e salt e encriptando via MD5
 		$this->activationKey = md5($this->email.$this->salt);
 	}
 	
 	public function encryptPassword ($password) 
 	{
-		return (new Bcrypt)->setSalt($this->salt)->setCost(13)->create($password);
+		return base64_encode(Pbkdf2::calc('sha256', $password, $this->salt, 10000, 32));
 	}
 	protected function geraHash ($hash) {
 		$gerahash = new Bcrypt();
@@ -108,7 +112,7 @@ class User {
 	 *
 	 * @param integer $id        	
 	 */
-	public function setId(integer $id) {
+	public function setId($id) {
 		$this->id = $id;
 		return $this;
 	}
@@ -125,7 +129,7 @@ class User {
 	 *
 	 * @param string $nome        	
 	 */
-	public function setNome(string $nome) {
+	public function setNome($nome) {
 		$this->nome = $nome;
 		return $this;
 	}
@@ -142,7 +146,7 @@ class User {
 	 *
 	 * @param string $email        	
 	 */
-	public function setEmail(string $email) {
+	public function setEmail($email) {
 		$this->email = $email;
 		return $this;
 	}
@@ -159,7 +163,7 @@ class User {
 	 *
 	 * @param string $password        	
 	 */
-	public function setPassword(string $password) {
+	public function setPassword($password) {
 		$this->password = $this->encryptPassword($password);
 		return $this;
 	}
@@ -176,7 +180,7 @@ class User {
 	 *
 	 * @param string $salt        	
 	 */
-	public function setSalt(string $salt) {
+	public function setSalt($salt) {
 		$this->salt = $salt;
 		return $this;
 	}
@@ -193,7 +197,7 @@ class User {
 	 *
 	 * @param boolean $active        	
 	 */
-	public function setActive(boolean $active) {
+	public function setActive($active) {
 		$this->active = $active;
 		return $this;
 	}
@@ -210,7 +214,7 @@ class User {
 	 *
 	 * @param string $activationKey        	
 	 */
-	public function setActivationKey(string $activationKey) {
+	public function setActivationKey($activationKey) {
 		$this->activationKey = $activationKey;
 		return $this;
 	}

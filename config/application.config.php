@@ -6,6 +6,7 @@ $modules = array(
 		'Application',
 		'DoctrineModule',
 		'DoctrineORMModule',
+		'DoctrineDataFixtureModule',
 		'SONBase',
 		'SONUser'
 );

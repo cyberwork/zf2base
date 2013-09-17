@@ -1,21 +1,45 @@
 <?php
+
 namespace SONUser;
 
-class Module
-{
-    public function getConfig()
-    {
-        return include __DIR__ . '/config/module.config.php';
-    }
+use Zend\Mail\Transport\Smtp as SmtpTransport, Zend\Mail\Transport\SmtpOptions;
 
-    public function getAutoloaderConfig()
-    {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
-        );
-    }
+
+class Module {
+	public function getConfig() {
+		return include __DIR__ . '/config/module.config.php';
+	}
+	public function getAutoloaderConfig() {
+		return array (
+				'Zend\Loader\StandardAutoloader' => array (
+						'namespaces' => array (
+								__NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__ 
+						) 
+				) 
+		);
+	}
+	public function getServiceConfig() {
+		return array (
+				'factories' => array (
+						 'Zend\Log\FirePhp' => function($sm) {
+                $writer_firebug = new \Zend\Log\Writer\FirePhp();
+                $logger = new \Zend\Log\Logger();
+                $logger->addWriter($writer_firebug);
+                return $logger;
+            },
+						'SONUser\Mail\Transport' => function ($sm) {
+							$config = $sm->get ( 'Config' );
+							
+							$transport = new SmtpTransport ();
+							$options = new SmtpOptions ( $config ['mail'] );
+							$transport->setOptions ( $options );
+							
+							return $transport;
+						},
+						'SONUser\Service\User' => function ($sm) {
+							return new Service\User ( $sm->get ( 'Doctrine\ORM\EntityManager' ), $sm->get ( 'SONUser\Mail\Transport' ), $sm->get ( 'View' ) );
+						} 
+				) 
+		);
+	}
 }
