@@ -2,7 +2,10 @@
 
 namespace SONUser;
 
-use Zend\Mail\Transport\Smtp as SmtpTransport, Zend\Mail\Transport\SmtpOptions;
+use Zend\Mvc\MvcEvent;
+
+use Zend\Mail\Transport\Smtp as SmtpTransport, 
+		Zend\Mail\Transport\SmtpOptions;
 
 
 class Module {
@@ -27,18 +30,20 @@ class Module {
                 $logger->addWriter($writer_firebug);
                 return $logger;
             },
-						'SONUser\Mail\Transport' => function ($sm) {
-							$config = $sm->get ( 'Config' );
-							
-							$transport = new SmtpTransport ();
-							$options = new SmtpOptions ( $config ['mail'] );
-							$transport->setOptions ( $options );
-							
-							return $transport;
-						},
-						'SONUser\Service\User' => function ($sm) {
-							return new Service\User ( $sm->get ( 'Doctrine\ORM\EntityManager' ), $sm->get ( 'SONUser\Mail\Transport' ), $sm->get ( 'View' ) );
-						} 
+						'SONUser\Mail\Transport' => function($sm) {
+                $config = $sm->get('Config');
+                
+                $transport = new SmtpTransport;
+                $options = new SmtpOptions($config['mail']);
+                $transport->setOptions($options);
+                
+                return $transport;
+              },
+              'SONUser\Service\User' => function($sm) {
+                  return new Service\User($sm->get('Doctrine\ORM\EntityManager'),
+                                          $sm->get('SONUser\Mail\Transport'),
+                                          $sm->get('View'));
+              },
 				) 
 		);
 	}

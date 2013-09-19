@@ -25,12 +25,57 @@ return array (
 												'action' => 'activate'
 										)
 								)
-						)
+						),
+						'sonuser-admin' => array (
+								'type' => 'Literal',
+								'options' => array (
+										'route' => '/admin',
+										'defaults' => array (
+												'__NAMESPACE__' => 'SONUser\Controller',
+												'controller' => 'Users',
+												'action' => 'index' 
+										) 
+								),
+								'may_terminate' => true,
+								'child_routes' => array(
+										'default' => array(
+												'type' => 'Segment',
+												'options' => array(
+														'route' => '/[:controller[/:action[/:id]]]',
+														'constraints' => array(
+																'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+																'id'				 => '\d+'
+														)
+												),
+												'defaults' => array(
+														'__NAMESPACE__' => 'SONUser\Controller',
+														'controller' => 'Users'
+												)
+										),
+										'paginator' => array(
+												'type' => 'Segment',
+												'options' => array(
+														'route' => '/[:controller[/page/:page]]',
+														'constraints' => array(
+																'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+																'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+																'page'				 => '\d+'
+														),
+														'defaults' => array(
+																'__NAMESPACE__' => 'SONUser\Controller',
+																'controller' => 'Users'
+														)
+												)
+										)
+								)  
+						),
 				) 
 		),
 		'controllers' => array(
 				'invokables' => array(
-						'SONUser\Controller\Index' => 'SONUser\Controller\IndexController'
+						'SONUser\Controller\Index' => 'SONUser\Controller\IndexController',
+						'SONUser\Controller\Users' => 'SONUser\Controller\UsersController'
 				),
 		),
 		'doctrine' => array(
@@ -58,6 +103,7 @@ return array (
 				'exception_template'       => 'error/index',
 				'template_map' => array(
 						'layout/layout'           => __DIR__ . '/../../application/view/layout/layout.phtml',
+						'paginator-slide' 				=> __DIR__ . '/../../SONBase/view/partials/slidePaginator.phtml',
 						'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
 						'error/404'               => __DIR__ . '/../../application/view/error/404.phtml',
 						'error/index'             => __DIR__ . '/../../application/view/error/index.phtml',
