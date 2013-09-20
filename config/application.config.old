@@ -6,7 +6,9 @@ $modules = array(
 		'Application',
 		'DoctrineModule',
 		'DoctrineORMModule',
-		'SONBase'
+		'DoctrineDataFixtureModule',
+		'SONBase',
+		'SONUser'
 );
 if ($_SERVER['APPLICATION_ENV'] == 'development') {
 	$modules[] = 'ZendDeveloperTools';

@@ -34,7 +34,7 @@ class Login extends Form
 					'type' => 'Zend\Form\Element\Submit',
 					'attributes' => array(
 							'value' => 'Login',
-							'class' => 'btn-success'
+							'class' => 'btn btn-primary'
 					)
 			));
 	}

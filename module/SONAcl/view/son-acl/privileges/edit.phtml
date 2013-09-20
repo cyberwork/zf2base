@@ -1,14 +1,13 @@
-<h3>Login:</h3>
+<h3>Editar Privilege</h3>
+
 <br />
-<?php if ($this->error) : ?>
-<p>Usuário ou senha inválidos</p>
-<?php endif;?>
 
-<?php 
-$form = $this->form;
-$form->setAttribute('action', $this->url('sonuser-auth'));
+<?php
+$form = $this->form; 
+
+$form->setAttribute('action', $this->url('sonacl-admin/default',array('controller'=>'privileges','action'=>'edit', 'id'=>$form->get("id")->getValue())));
+
 $form->prepare();
-
 echo $this->form()->openTag($form);
 foreach ($form->getElements() as $el) :
         ?>

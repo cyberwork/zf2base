@@ -5,11 +5,12 @@ namespace SONUser;
 use Zend\Mvc\MvcEvent;
 
 use Zend\Mail\Transport\Smtp as SmtpTransport, 
-	Zend\Mail\Transport\SmtpOptions;
+	  Zend\Mail\Transport\SmtpOptions;
+
 use SONBase\Auth\Adapter as AuthAdapter;
 
 use Zend\Authentication\AuthenticationService,
-	Zend\Authentication\Storage\Session as SessionStorage;
+		Zend\Authentication\Storage\Session as SessionStorage;
 
 use Zend\ModuleManager\ModuleManager;
 
@@ -39,7 +40,7 @@ class Module {
 		$controller = $e->getTarget();
 		$matchedRoute = $controller->getEvent()->getRouteMatch()->getMatchedRouteName();
 		
-		if(!$auth->hasIdentity() && $matchedRoute == 'sonuser-admin' || $matchedRoute == 'sonuser-admin/paginator')
+		if(!$auth->hasIdentity() && ($matchedRoute == 'sonuser-admin' || $matchedRoute == 'sonuser-admin/paginator'))
 			return $controller->redirect()->toRoute('sonuser-auth');
 	}
 	public function getServiceConfig() {
@@ -69,6 +70,14 @@ class Module {
               		return new AuthAdapter($sm->get('Doctrine\ORM\EntityManager'));
               }
 				) 
+		);
+	}
+	public function getViewHelperConfig()
+	{
+		return array(
+			'invokables' => array(
+					'UserIdenty' => new View\Helper\UserIdentity()
+			)
 		);
 	}
 }
