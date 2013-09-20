@@ -9,16 +9,14 @@
 	"license" : [
 		"BSD-3-Clause"
 	],
-	
-	"minimum-stability" : "dev",
 	"require" : {
 		"php" : ">=5.3.3",
-		"zendframework/zendframework" : "2.*",
+		"zendframework/zendframework" : "2.2.*",
 		"doctrine/doctrine-orm-module" : "dev-master",
 		"hounddog/doctrine-data-fixture-module" : "dev-master",
-		"zendframework/zftool" : "dev-master",		
+		"zendframework/zftool" : "dev-master",
 		"firephp/firephp-core" : "dev-master",
 		"zendframework/zend-developer-tools" : "dev-master"
-	}
-	
+	},
+	"minimum-stability" : "dev"
 }

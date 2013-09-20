@@ -1,0 +1,18 @@
+<h3>Editar Usuário</h3>
+<br />
+<?php 
+$form = $this->form;
+$form->setAttribute('role','form');
+$form->setAttribute('action',$this->url('sonuser-admin/default',array('controller'=>'users','action'=>'edit', 'id'=>$form->get("id")->getValue())));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+foreach ($form->getElements() as $el) :
+        ?>
+        <div class="form-group">
+            <?php echo $this->formRow($el); ?>
+        </div>
+        <?php
+endforeach;
+echo $this->form()->closeTag();
+?>

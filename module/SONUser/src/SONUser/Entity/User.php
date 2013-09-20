@@ -253,4 +253,9 @@ class User {
 		$this->createdAt = new \DateTime('NOW');
 		return $this;
 	}
+	
+	public function toArray()
+	{
+		return (new Hydrator\ClassMethods())->extract($this);
+	}
 }

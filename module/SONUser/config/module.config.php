@@ -26,6 +26,31 @@ return array (
 										)
 								)
 						),
+						
+						'sonuser-auth' => array (
+								'type' => 'Literal',
+								'options' => array (
+										'route' => '/auth',
+										'defaults' => array (
+												'__NAMESPACE__' => 'SONUser\Controller',
+												'controller' => 'Auth',
+												'action' => 'index' 
+										) 
+								) 
+						),
+						
+						'sonuser-logout' => array (
+								'type' => 'Literal',
+								'options' => array (
+										'route' => '/auth/logout',
+										'defaults' => array (
+												'__NAMESPACE__' => 'SONUser\Controller',
+												'controller' => 'Auth',
+												'action' => 'logout'
+										)
+								)
+						),
+						
 						'sonuser-admin' => array (
 								'type' => 'Literal',
 								'options' => array (
@@ -75,7 +100,8 @@ return array (
 		'controllers' => array(
 				'invokables' => array(
 						'SONUser\Controller\Index' => 'SONUser\Controller\IndexController',
-						'SONUser\Controller\Users' => 'SONUser\Controller\UsersController'
+						'SONUser\Controller\Users' => 'SONUser\Controller\UsersController',
+						'SONUser\Controller\Auth' => 'SONUser\Controller\AuthController',
 				),
 		),
 		'doctrine' => array(
